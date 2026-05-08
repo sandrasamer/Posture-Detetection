@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Offline Posture Detection</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7f8;
+      color: #182024;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+    }
+    main {
+      width: min(920px, 94vw);
+    }
+    video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #101820;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .panel {
+      margin-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+    .status {
+      font-weight: 700;
+      color: #176b3a;
+    }
+    button {
+      border: 0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      background: #176b87;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <video id="video" autoplay playsinline muted></video>
+    <div class="panel">
+      <div>
+        <div class="status">Offline mode</div>
+        <div>No Anthropic API key or subscription is required for the Python app.</div>
+      </div>
+      <button id="start">Start camera preview</button>
+    </div>
+  </main>
+  <script>
+    const video = document.querySelector("#video");
+    const start = document.querySelector("#start");
+
+    start.addEventListener("click", async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+      video.srcObject = stream;
+    });
+  </script>
+</body>
+</html>
